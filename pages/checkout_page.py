@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class CheckoutPage:
     ADD_BACKPACK = (By.ID, "add-to-cart-sauce-labs-backpack")
     CART_ICON = (By.CLASS_NAME, "shopping_cart_link")
@@ -21,16 +22,16 @@ class CheckoutPage:
         self.wait.until(EC.element_to_be_clickable(self.ADD_BACKPACK)).click()
 
     def open_cart(self):
-        self.driver.find_element(*self.CART_ICON).click()
+        self.wait.until(EC.element_to_be_clickable(self.CART_ICON)).click()
 
     def start_checkout(self):
         self.wait.until(EC.element_to_be_clickable(self.CHECKOUT_BTN)).click()
 
     def fill_details(self, first, last, postal):
-        self.driver.find_element(*self.FIRST_NAME).send_keys(first)
-        self.driver.find_element(*self.LAST_NAME).send_keys(last)
-        self.driver.find_element(*self.POSTAL).send_keys(postal)
-        self.driver.find_element(*self.CONTINUE_BTN).click()
+        self.wait.until(EC.visibility_of_element_located(self.FIRST_NAME)).send_keys(first)
+        self.wait.until(EC.visibility_of_element_located(self.LAST_NAME)).send_keys(last)
+        self.wait.until(EC.visibility_of_element_located(self.POSTAL)).send_keys(postal)
+        self.wait.until(EC.element_to_be_clickable(self.CONTINUE_BTN)).click()
 
     def finish(self):
         self.wait.until(EC.element_to_be_clickable(self.FINISH_BTN)).click()
